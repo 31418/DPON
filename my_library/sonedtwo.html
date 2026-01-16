@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+    <head>
+<!-- Library files (my_library) -->
+<script src="my_library/easyStar.js"></script>
+<script src="my_library/mouseControls.js"></script>
+<script src="my_library/Sprite_constructor.js"></script>
+<script src="my_library/AnimManager.js"></script>
+<script src="my_library/TileSprite.js"></script>
+<script src="my_library/Texture_constructor.js"></script>
+    <script src="my_library/assets.js"></script>
+<script src="my_library/CanvasRenderer.js"></script>
+<script src="my_library/AddRemoveUpdate.js"></script>
+<script src="my_library/KeyControls.js"></script>
+<script src="my_library/game.js"></script>
+<script src="my_library/utils/math.js"></script>
+<script src="my_library/utils/entities.js"></script>
+<script src="my_library/TileMap.js"></script>
+<script src="my_library/camera.js"></script>
+<script src="my_library/collisions.js"></script>
+<script src="my_library/pickUp.js"></script>
+<script src="my_library/state.js"></script>
+<script src="my_library/movement.js"></script>
+    <script src="my_library/vector.js"></script>
+<script src="my_library/particle.js"></script>
+<script src="my_library/Rect.js"></script>
+<script src="my_library/dialog.js"></script>
+
+<!-- Game files (Squizz_garden) -->
+<script src="sdtwo/Level.js"></script>
+<script src="sdtwo/player.js"></script>
+<script src="sdtwo/Bat.js"></script>
+<script src="sdtwo/Bullet.js"></script>
+<script src="sdtwo/BadGuy.js"></script>
+<script src="sdtwo/ghost.js"></script>
+
+<!-- Screens -->
+<script src="sdtwo/titleScreen.js"></script>
+<script src="sdtwo/gameOverScreen.js"></script>
+<script src="sdtwo/LogoScreen.js"></script>
+<script src="sdtwo/MainGameScreen.js"></script>
+    </head>
+    <body>
+        <board id="board"></board>
+        <script>
+
+
+            const game = new Game(1280, 640)
+            const controls = new KeyControls();
+            const mouse = new MouseControls(game.canvas);
+
+        function titleScreen(){
+            game.scene = new TitleScreen(game, controls, newGame);
+        }
+        function gameOver(result){
+            game.scene = new GameOverScreen(game, controls, result, titleScreen);
+        }
+        function newGame(){
+            game.scene = new GameScreen(game, controls, gameOver, mouse);
+        }
+
+
+
+
+        game.scene = new LogoScreen(game, titleScreen)
+
+            game.run()
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+    <head>
+<!-- Library files (my_library) -->
+<script src="my_library/easyStar.js"></script>
+<script src="my_library/mouseControls.js"></script>
+<script src="my_library/Sprite_constructor.js"></script>
+<script src="my_library/AnimManager.js"></script>
+<script src="my_library/TileSprite.js"></script>
+<script src="my_library/Texture_constructor.js"></script>
+<script src="my_library/CanvasRenderer.js"></script>
+<script src="my_library/AddRemoveUpdate.js"></script>
+<script src="my_library/KeyControls.js"></script>
+<script src="my_library/mouseControls.js"></script>
+<script src="my_library/game.js"></script>
+<script src="my_library/utils/math.js"></script>
+<script src="my_library/utils/entities.js"></script>
+<script src="my_library/TileMap.js"></script>
+<script src="my_library/camera.js"></script>
+<script src="my_library/pickUp.js"></script>
+<script src="my_library/state.js"></script>
+<script src="my_library/movement.js"></script>
+    <script src="my_library/vector.js"></script>
+    <script src="my_library/utils/physics.js"></script>
+<script src="my_library/sounds.js"></script>
+<script src="my_library/soundpool.js"></script>
+<script src="my_library/assets.js"></script>
+<script src="my_library/particle.js"></script>
+
+<!-- Game files (Squizz_garden) -->
+ <script src="squizzPlatformer/textures.js"></script>
+<script src="squizzPlatformer/Level.js"></script>
+<script src="squizzPlatformer/player.js"></script>
+<script src="squizzPlatformer/Bullet.js"></script>
+<script src="squizzPlatformer/BadGuy.js"></script>\
+<script src="SquizzPlatformer/structures.js"></script>
+
+
+<script src="SquizzPlatformer/enemies/zombie.js"></script>
+<script src="SquizzPlatformer/enemies/bat.js"></script>
+        
+
+<script src="squizzPLatformer/MainGameScreen.js"></script>
+<title>Squizz Platformer</title>
+    </head>
+    <body>
+        <board id="board"></board>
+        <script>
+            const game = new Game(1280, 640)
+            game.scene = new GameScreen(game, new KeyControls(), new MouseControls(game.canvas))
+            game.run()
+
+        </script>
+    </body>
+</html>

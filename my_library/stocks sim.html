@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stocks by BruceHTML</title>
+    <style>
+        body{
+            background: black;
+            color: aliceblue;
+        }
+        .real_estate{
+            border: 2px white solid;
+            float: right;
+            padding: 2rem;
+        }
+        .news{
+            border: 2px white solid;
+            float: right;
+            padding: 2rem;
+            margin-left: 2px;
+        }
+        .lotto{
+            border: 2px rgb(255, 0, 0) solid;
+            background-color: rgb(234, 111, 172);
+            float: right;
+            padding: 2rem;
+            margin-left: 2px;
+            padding: 2px;
+            margin: 20px;
+        }
+        #money{
+            color: rgb(102, 182, 102);
+            position: sticky;
+            top:0;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="mone">
+        <p>Money: 0</p>
+    </div>
+
+
+
+
+    <hr>
+
+    <div id="realestate" class="real_estate">
+        <h2>My realestate</h2>
+        <hr>
+        <!-- Houses -->
+        <div>
+            <h4>Houses</h4>
+            <p>Price:</p>
+            <p id="house_price">500000</p>
+            <button id="buy_house">Buy</button>
+            <button id="sell_house">Sell</button>
+            <p>Houses:</p>
+            <p id="houses">0</p>
+        </div>
+    </div>
+
+    <!--News-->
+    <div class="news">
+        <h4>Stock news!</h4>
+        <hr>
+        <p id="news"> </p>
+    </div>
+
+    <!-- Stock 1 -->
+    <hr>
+    <button id="buy1">BUY</button>
+    <button id="sell1">sell</button>
+    <p>Price Stock 1:</p>
+    <p id="price1">10</p>
+    <p>Shares Stock 1:</p>
+    <p id="shares1">0</p>
+
+
+    <!--Lotto-->
+    <div class="lotto">
+        <h2>LottoWin!</h2>
+        <button id="lotto_try">Buy ticket for $2</button>
+        <p>Buy now!</p>
+    </div>
+
+
+    <!-- Stock 2 -->
+    <hr>
+    <button id="buy2">BUY</button>
+    <button id="sell2">sell</button>
+    <p>Price Stock 2:</p>
+    <p id="price2">30</p>
+    <p>Shares Stock 2:</p>
+    <p id="shares2">0</p>
+
+    <!-- Stock 3 -->
+    <hr>
+    <button id="buy3">BUY</button>
+    <button id="sell3">sell</button>
+    <p>Price Stock 3:</p>
+    <p id="price3">50</p>
+    <p>Shares Stock 3:</p>
+    <p id="shares3">0</p>
+
+    <!-- Stock 4 -->
+    <hr>
+    <button id="buy4">BUY</button>
+    <button id="sell4">sell</button>
+    <p>Price Stock 4:</p>
+    <p id="price4">60</p>
+    <p>Shares Stock 4:</p>
+    <p id="shares4">0</p>
+
+   
+
+    
+
+    <script>
+        var price_1 = 10;
+        var price_2 = 30;
+        var price_3 = 50;
+        var price_4 = 70;
+        var house_price = 700000;
+        var money = localStorage.getItem('money'); //5288
+        if (money === null){
+            money = 5000;
+        }
+        
+        var shares_1 = 0;
+        var shares_2 = 0;
+        var shares_3 = 0;
+        var shares_4 = 0;
+        var houses = 0;
+        var house_crash = false;
+        var stock1_crash = false;
+        var stock2_crash = false;
+        var stock3_crash = false;
+        var stock4_crash = false;
+        var news = ' ';
+        var price_1_rise = 0
+        var price_2_rise = 0
+        var price_3_rise = 0
+        var price_4_rise = 0
+        
+
+        var buyButton_1 = document.getElementById('buy1');
+        var sellButton_1 = document.getElementById('sell1');
+        var buyButton_2 = document.getElementById('buy2');
+        var sellButton_2 = document.getElementById('sell2');
+        var buyButton_3 = document.getElementById('buy3');
+        var sellButton_3 = document.getElementById('sell3');
+        var buyButton_4 = document.getElementById('buy4');
+        var sellButton_4 = document.getElementById('sell4');
+        var buyHouse_1 = document.getElementById('buy_house');
+        var sellHouse_1 = document.getElementById('sell_house');
+        var lottoButton = document.getElementById('lotto_try');
+
+        buyButton_1.addEventListener('click', buya_func);
+        sellButton_1.addEventListener('click', sella_func);
+        buyButton_2.addEventListener('click', buyb_func);
+        sellButton_2.addEventListener('click', sellb_func);
+        buyButton_3.addEventListener('click', buyc_func);
+        sellButton_3.addEventListener('click', sellc_func);
+        buyButton_4.addEventListener('click', buyd_func);
+        sellButton_4.addEventListener('click', selld_func);
+        buyHouse_1.addEventListener('click', buy_house_func);
+        sellHouse_1.addEventListener('click', sell_house_func);
+        lottoButton.addEventListener('click', function(){
+            money -= 2
+            if (Math.random() < 0.0001){ // 0.01% chance to win
+                money += 50000;
+                alert('win')
+            }
+            else {
+                alert('lose')
+            }
+        })
+
+        function buya_func(){
+            if (price_1 > 0){
+                money = money - price_1;
+                shares_1 = shares_1 + 1;
+                updateDisplay();
+            }
+        }
+
+        function sella_func(){
+            if (shares_1 > 0){
+                money = money + price_1;
+                shares_1 = shares_1 - 1;
+                updateDisplay();
+            }
+        }
+
+        function buyb_func(){
+            if (price_2 > 0){
+                money = money - price_2;
+                shares_2 = shares_2 + 1;
+                updateDisplay();
+            }
+        }
+
+        function sellb_func(){
+            if (shares_2 > 0){
+                money = money + price_2;
+                shares_2 = shares_2 - 1;
+                updateDisplay();
+            }
+        }
+
+        function buyc_func(){
+            if (price_3 > 0){
+                money = money - price_3;
+                shares_3 = shares_3 + 1;
+                updateDisplay();
+            }
+        }
+
+        function sellc_func(){
+            if (shares_3 > 0){
+                money = money + price_3;
+                shares_3 = shares_3 - 1;
+                updateDisplay();
+            }
+        }
+
+        function buyd_func(){
+            if (price_4 > 0){
+                money = money - price_4;
+                shares_4 = shares_4 + 1;
+                updateDisplay();
+            }
+        }
+
+        function selld_func(){
+            if (shares_4 > 0){
+                money = money + price_4;
+                shares_4 = shares_4 - 1;
+                updateDisplay();
+            }
+        }
+
+        function buy_house_func(){
+            if (money >= house_price) {
+                money = money - house_price;
+                houses = houses + 1;
+                updateDisplay();
+            } else {
+                alert('Not enough money to buy a house!');
+            }
+        }
+
+        function sell_house_func(){
+            if (houses > 0) {
+                money = money + house_price;
+                houses = houses - 1;
+                updateDisplay();
+            } else {
+                alert('No houses to sell!');
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('money').textContent = 'Money: ' + money;
+            document.getElementById('price1').textContent = price_1;
+            document.getElementById('shares1').textContent = shares_1;
+            document.getElementById('price2').textContent = price_2;
+            document.getElementById('shares2').textContent = shares_2;
+            document.getElementById('price3').textContent = price_3;
+            document.getElementById('shares3').textContent = shares_3;
+            document.getElementById('price4').textContent = price_4;
+            document.getElementById('shares4').textContent = shares_4;
+            document.getElementById('house_price').textContent = house_price;
+            document.getElementById('houses').textContent = houses;
+            document.getElementById('news').textContent = news;
+        }
+
+        function loopy(){
+            localStorage.setItem('money', money);
+            console.log('looping yeah')
+            if (price_1 >= 0.01){
+                price_1 = price_1 + (Math.random() * 2 - 1) + price_1_rise;
+                price_1_rise = 0
+                if (Math.random() > 0.99){
+                    news = 'Stock1 Inc. released a new product that is getting sold out in stores all over the nation! ';
+                    price_1_rise = 15.9;
+                }
+                updateDisplay();
+            } else {
+                if (!stock1_crash) {
+                    alert('Company 1 is bankrupt');
+                    stock1_crash = true;
+                }
+            }
+
+            if (price_2 >= 0.01){
+                price_2 = price_2 + (Math.random() * 10 - 5) + price_2_rise;
+                price_2_rise = 0
+                if (Math.random() > 0.99){
+                    news = 'Experts predict that Stock2 Corp might fire workers by the thousands by the end of the next mounth a it is losing millions. ';
+                    price_2_rise = -4.8;
+                }
+                if (Math.random() > 0.99){
+                    news = 'Stock2 Corp has invested in further tech development';
+                    price_2_rise = 2.9;
+                }
+                updateDisplay();
+            } else {
+                if (!stock2_crash) {
+                    alert('Company 2 is bankrupt');
+                    stock2_crash = true;
+                }
+            }
+            
+            if (price_3 >= 0.01){
+                price_3 = price_3 + (Math.random() * 5 - 2.5) + price_3_rise;
+                price_3_rise = 0
+                if (Math.random() > 0.99){
+                    news = 'Stock3 Inc. has a new CEO now! ';
+                    price_3_rise = -2.5;
+                }
+                if (Math.random() > 0.99){
+                    news = 'Stock3 Inc. has earned 2 billion this year in profits';
+                    price_3_rise = 5.7;
+                }
+                updateDisplay();
+            } else {
+                if (!stock3_crash) {
+                    alert('Company 3 is bankrupt');
+                    stock3_crash = true;
+                }
+            }
+
+            if (price_4 >= 0.01){
+                price_4 = price_4 + (Math.random() * 7 - 3.5) + price_4_rise;
+                price_4_rise = 0
+                if (Math.random() > 0.99){
+                    news = 'Stock4 Inc. has just become the third largest company in the country! Experts say Stock4 Inc. will do well in the next few years as demand rises. ';
+                    price_4_rise = 6.8;
+                }
+                updateDisplay();
+            } else {
+                if (!stock4_crash) {
+                    alert('Company 4 is bankrupt');
+                    stock4_crash = true;
+                }
+            }
+
+            if (house_price >= 0.01){
+                house_price = house_price + (Math.random() * 1000 - 500); // Random fluctuation between -500 and 500
+                updateDisplay();
+            } else {
+                if (!house_crash){
+                    alert('Housing has crashed');
+                    house_crash = true;
+                }
+            }
+        }   
+                
+        
+
+            updateDisplay();
+    
+
+        var loopInterval = setInterval(loopy, 3000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Canvas Rendering Test</title>
+    <script>
+        
+
+        
+    </script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <board id="board" width="640" height="480"></board>
+
+    <script src="CanvasRenderer.js"></script>
+    <script src="AddRemoveUpdate.js"></script>
+    <script>
+
+        
+
+
+        const w = 640;
+        const h = 480;
+        const renderer = new CanvasRenderer(w, h);
+
+        document.querySelector('#board').appendChild(renderer.view); // Append the canvas to the body
+        const scene = new AddRemoveUpdate();
+
+
+        const message = new Text("The Renderer!", {
+            font: "40pt sans-serif",
+            fill: "DarkRed",
+            align: "center"
+        });
+        const message2 = new Text("The Renderer!", {
+            font: "40pt sans-serif",
+            fill: "DarkRed",
+            align: "center"
+        });
+        message2.pos.x = w / 2 + 500;
+        message2.pos.y = h / 2;
+        message.pos.x = w / 2;
+        message.pos.y = h / 2;
+
+        scene.add(message);
+        scene.add(message2);
+        message.update = function (dt){
+            this.pos.x -= 100 * dt;
+            if (this.pos.x < -180) {
+                this.pos.x = w + 180;
+            }
+
+        }
+        message2.update = function (dt){
+            this.pos.x -= 100 * dt;
+            if (this.pos.x < -180) {
+                this.pos.x = w + 180;
+            }
+        }
+
+        
+
+        
+
+        let dt = 0;
+        let last = 0;
+        function game_loop(ms){
+            t = ms/1000
+            dt = t - last; // Calculate delta time
+            last = t; // Update last time
+
+            scene.update(dt, t); // Update the scene with delta time
+            renderer.render(scene); // Render the scene
+            console.log('going')
+
+            requestAnimationFrame(game_loop); // Request next frame
+        }
+        requestAnimationFrame(game_loop); // Start the game loop
+
+    </script>
+</body>
+</html>
